@@ -7,6 +7,7 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -171,6 +172,35 @@ public class TableTop {
         }
     }
 
+    public ArrayList<Ficha> firstPlayer(){
+        ArrayList<Integer> dices= new ArrayList<>(jugadores.size());
+        ArrayList<Ficha> jugadoresOrden= new ArrayList<>(jugadores.size());
+        int dice;
+        Random random = new Random();
+        for(int i=0; i<jugadores.size(); i++){
+            dice=random.nextInt(6)+1;
+            System.out.println("jugador: "+jugadores.get(i).getUsuario().getUserName()+ " obtuvo : "+dice);
+            jugadoresOrden.add(jugadores.get(i));
+            dices.add(dice);
+        }
+        for(int i=0; i<dices.size(); i++){
+            for(int j=0; j<dices.size(); j++){
+                if(dices.get(i)>dices.get(j)){
+                    Ficha aux=jugadoresOrden.get(j);
+                    int diceAux=dices.get(j);
+
+                    dices.set(j,dices.get(i));
+                    jugadoresOrden.set(j,jugadoresOrden.get(i));
+                    dices.set(i,diceAux);
+                    jugadoresOrden.set(i,aux);
+                }
+            }
+        }
+
+        System.out.println("primer jugador es: "+jugadoresOrden.get(0).getUsuario().getUserName());
+        return jugadoresOrden;
+    }
+
     /**
      * Inicia el juego, realizando los turnos de los jugadores hasta que uno gane.
      *
@@ -180,6 +210,7 @@ public class TableTop {
     public void startGame(Scanner scanner, Questions questions) {
         int jugadorActual = 0;
         var categories = Category.values();
+        this.jugadores = firstPlayer();
         while (!ganador) {
             System.out.print("\033[H\033[2J");
             System.out.flush();
