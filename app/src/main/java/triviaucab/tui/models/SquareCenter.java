@@ -164,7 +164,7 @@ public class SquareCenter extends Square implements brazo, CategoryQuestion {
      * @return Casilla resultante después de la interacción (esta misma).
      */
     @Override
-    public Square reaction(Scanner scanner, Ficha jugador, Questions questions) {
+    public boolean reaction(Scanner scanner, Ficha jugador, Questions questions) {
         Category[] categorias = Category.values();
         int seleccion;
         do {
@@ -180,7 +180,7 @@ public class SquareCenter extends Square implements brazo, CategoryQuestion {
 
         if (question == null) {
             System.out.println("No hay preguntas disponibles para esta categoría.");
-            return this;
+            return false;
         }
 
         System.out.println("Pregunta: " + question.getQuestion());
@@ -202,10 +202,10 @@ public class SquareCenter extends Square implements brazo, CategoryQuestion {
         if (respuestaCorrecta) {
             System.out.println("¡Respuesta correcta!");
             jugador.gano = true;
-            return this;
+            return true;
         } else {
             System.out.println("Respuesta incorrecta.");
-            return this;
+            return false;
         }
     }
 

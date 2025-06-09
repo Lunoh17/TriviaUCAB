@@ -191,6 +191,7 @@ public class TableTop {
                 System.out.println("categoria: "+categories[j]+" hay un total de respondidas: "+ jugadores.get(jugadorActual).triangulos[j]);
             }
             ganador=jugadores.get(jugadorActual).avanzar(scanner, questions);
+            jugadores.get(jugadorActual).positionTable=jugadores.get(jugadorActual).posicion.position;
             System.out.println("Posición actual:\n" + jugadores.get(jugadorActual).posicion.paint());
             System.out.println("Presione ENTER para continuar");
             scanner.nextLine();

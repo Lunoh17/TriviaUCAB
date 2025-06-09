@@ -189,12 +189,12 @@ public class SquareRayo extends Square implements movimientoBidireccional, Categ
      * @param questions Banco de preguntas.
      * @return Casilla resultante luego de responder la pregunta.
      */
-    public Square reaction(Scanner scanner, Ficha jugador, Questions questions) {
+    public boolean reaction(Scanner scanner, Ficha jugador, Questions questions) {
         Question question = questions.getRandomQuestion(categoria);
 
         if (question == null) {
             System.out.println("No hay preguntas disponibles para esta categoría.");
-            return this;
+            return false;
         }
 
         System.out.println("Pregunta: " + question.getQuestion());
@@ -216,10 +216,10 @@ public class SquareRayo extends Square implements movimientoBidireccional, Categ
         if (respuestaCorrecta) {
             System.out.println("¡Respuesta correcta!");
             jugador.incrementarPuntos(categoria);
-            return this;
+            return true;
         } else {
             System.out.println("Respuesta incorrecta.");
-            return this;
+            return false;
         }
     }
 }

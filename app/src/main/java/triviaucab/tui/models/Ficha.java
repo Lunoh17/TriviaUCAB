@@ -95,41 +95,42 @@ public class Ficha {
      */
     public boolean avanzar(Scanner scanner, Questions questions) {
         int dado = tirarDado();
-        if (!salido && posicion instanceof brazo saliendo) {
-            if (posicion instanceof SquareCenter)
-                posicion = saliendo.salir(dado, this.posicion.action(scanner, this), this, null);
-            else
-                posicion = saliendo.salir(dado, 1, this, scanner);
-            posicion.cantidadFichas++;
-            this.positionTable = posicion.position;
-            if (posicion instanceof CategoryQuestion cQ) {
-                cQ.reaction(scanner, this, questions);
-            }
-        } else if (entrado) {
-            if (posicion instanceof brazo saliendo) {
-                posicion = saliendo.entrar(dado, 1, this, scanner);
+        boolean continuar = false;
+
+        do {
+
+            if (!salido && posicion instanceof brazo saliendo) {
+                if (posicion instanceof SquareCenter)
+                    posicion = saliendo.salir(dado, this.posicion.action(scanner, this), this, null);
+                else
+                    posicion = saliendo.salir(dado, 1, this, scanner);
                 posicion.cantidadFichas++;
-                this.positionTable = posicion.position;
-                if (posicion instanceof SquareCenter sC) {
-                    sC.reaction(scanner, this, questions);
-                    if (this.gano) return true;
-                }
-            }
-        } else {
-            if (posicion instanceof movimientoBidireccional casilla) {
-                posicion = casilla.movimiento(dado, this.posicion.action(scanner, this), this);
-                posicion.cantidadFichas++;
-                this.positionTable = posicion.position;
-                if (posicion instanceof SquareSpecial sS) {
-                    posicion = sS.reaction(scanner, this);
-                    posicion.cantidadFichas++;
-                    this.positionTable = posicion.position;
-                }
                 if (posicion instanceof CategoryQuestion cQ) {
-                    cQ.reaction(scanner, this, questions);
+                    continuar = cQ.reaction(scanner, this, questions);
+
+                }
+            } else if (entrado) {
+                if (posicion instanceof brazo saliendo) {
+                    posicion = saliendo.entrar(dado, 1, this, scanner);
+                    posicion.cantidadFichas++;
+                    if (posicion instanceof SquareCenter sC) {
+                        sC.reaction(scanner, this, questions);
+                        if (this.gano) return true;
+                    }
+                }
+            } else {
+                if (posicion instanceof movimientoBidireccional casilla) {
+                    posicion = casilla.movimiento(dado, this.posicion.action(scanner, this), this);
+                    posicion.cantidadFichas++;
+                    if (posicion instanceof SquareSpecial sS) {
+                        continuar = true;
+                    }
+                    if (posicion instanceof CategoryQuestion cQ) {
+                        continuar = cQ.reaction(scanner, this, questions);
+                    }
                 }
             }
-        }
+        } while (continuar);
         return false;
     }
 

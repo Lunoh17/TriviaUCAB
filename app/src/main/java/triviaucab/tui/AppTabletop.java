@@ -118,24 +118,6 @@ public class AppTabletop {
     }
 
     /**
-     * Método que permite registrar múltiples usuarios nuevos.
-     * <p>
-     * Valida que la cantidad de usuarios sea adecuada y los almacena en la lista.
-     */
-    public void addUsers() {
-        int cantidadUsuarios = Validator.validarInt("Cuantos  usuario deseas registrar: ", scanner);
-        while (cantidadUsuarios > 9999 - listaUsuarios.size() || cantidadUsuarios <= 0) {
-            cantidadUsuarios = Validator.validarInt(
-                    "Exisiste la cantidad de usuarios, El maximos de usuario es " + (6 - listaUsuarios.size()),
-                    scanner);
-        }
-        for (int i = 0; i < cantidadUsuarios; i++) {
-            Usuario usuarioNuevo = new Usuario(askName(), askPassword());
-            listaUsuarios.add(usuarioNuevo);
-        }
-    }
-
-    /**
      * Pregunta al usuario si desea continuar con la acción actual.
      *
      * @param message El mensaje que se mostrará al usuario.
@@ -174,7 +156,7 @@ public class AppTabletop {
         System.out.println("Ingrese su password");
         String password = scanner.nextLine();
         while (password.length() != 6) {
-            System.out.println("La clave no cumple con los 6 caracteres");
+            System.out.println("La clave no c1umple con los 6 caracteres");
             System.out.println("Ingrese una clave valida");
             password = scanner.nextLine();
         }
@@ -212,7 +194,7 @@ public class AppTabletop {
                 .filter(usuario -> searchName.equals(usuario.getUserName()))
                 .collect(Collectors.toCollection(ArrayList<Usuario>::new));
         if (!usuariosFiltrados.isEmpty()) {
-            String password = this.askPassword();
+            String password = this.verifyPassword();
             for (Usuario usuario : usuariosFiltrados) {
                 if (usuario.getPassword().equals(Validator.calcularSha256(password))) {
                     return usuario;

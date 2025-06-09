@@ -135,12 +135,12 @@ public class SquareCategory extends Square implements brazo, movimientoBidirecci
      * @return casilla siguiente si la respuesta fue correcta, o la misma si fue incorrecta.
      */
     @Override
-    public Square reaction(Scanner scanner, Ficha jugador, Questions questions) {
+    public boolean reaction(Scanner scanner, Ficha jugador, Questions questions) {
         Question question = questions.getRandomQuestion(categoria);
 
         if (question == null) {
             System.out.println("No hay preguntas disponibles para esta categoría.");
-            return this;
+            return false;
         }
 
         System.out.println("Pregunta: " + question.getQuestion());
@@ -162,33 +162,10 @@ public class SquareCategory extends Square implements brazo, movimientoBidirecci
         if (respuestaCorrecta) {
             System.out.println("¡Respuesta correcta!");
             jugador.incrementarPuntos(categoria);
-            if (jugador.salido && !jugador.entrado) {
-                int dado = (int) (Math.random() * 6) + 1; // Número aleatorio entre 1 y 6
-                System.out.println("Tirando el dado... " + dado);
-                int direction = action(scanner, jugador);
-
-                return this.movimiento(dado,direction,jugador);
-            }
-            if (!jugador.salido){
-                int dado = (int) (Math.random() * 6) + 1; // Número aleatorio entre 1 y 6
-                System.out.println("Tirando el dado... " + dado);
-                int direction = action(scanner, jugador);
-
-                return this.salir(dado,direction,jugador,scanner);
-
-            }
-            if (jugador.entrado){
-                int dado = (int) (Math.random() * 6) + 1; // Número aleatorio entre 1 y 6
-                System.out.println("Tirando el dado... " + dado);
-                int direction = action(scanner, jugador);
-
-                return this.entrar(dado,direction,jugador,scanner);
-
-            }
-            return this;
+            return true;
         } else {
             System.out.println("Respuesta incorrecta.");
-            return this;
+            return false;
         }
     }
 
