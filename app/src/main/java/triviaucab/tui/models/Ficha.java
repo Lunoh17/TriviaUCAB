@@ -94,16 +94,15 @@ public class Ficha {
      * @return {@code true} si el jugador ha ganado, {@code false} en otro caso.
      */
     public boolean avanzar(Scanner scanner, Questions questions) {
-        int dado = tirarDado();
         boolean continuar = false;
 
         do {
+            int dado = tirarDado();
 
             if (!salido && posicion instanceof brazo saliendo) {
                 if (posicion instanceof SquareCenter)
                     posicion = saliendo.salir(dado, this.posicion.action(scanner, this), this, null);
-                else
-                    posicion = saliendo.salir(dado, 1, this, scanner);
+                else posicion = saliendo.salir(dado, 1, this, scanner);
                 posicion.cantidadFichas++;
                 if (posicion instanceof CategoryQuestion cQ) {
                     continuar = cQ.reaction(scanner, this, questions);
@@ -122,7 +121,7 @@ public class Ficha {
                 if (posicion instanceof movimientoBidireccional casilla) {
                     posicion = casilla.movimiento(dado, this.posicion.action(scanner, this), this);
                     posicion.cantidadFichas++;
-                    if (posicion instanceof SquareSpecial sS) {
+                    if (posicion instanceof SquareSpecial) {
                         continuar = true;
                     }
                     if (posicion instanceof CategoryQuestion cQ) {
@@ -130,17 +129,18 @@ public class Ficha {
                     }
                 }
             }
+
         } while (continuar);
         return false;
     }
-
-    /**
+/*
+    *//**
      * Obtiene las preguntas aprobadas de una categoría específica.
      *
      * @param questions Banco de preguntas.
      * @param category  Categoría deseada.
      * @return Lista de preguntas filtradas por categoría.
-     */
+     *//*
     public ArrayList<Question> getQuestions(Questions questions, Category category) {
         ArrayList<Question> aprobadas = questions.getApproved();
         ArrayList<Question> filtradas = new ArrayList<>();
@@ -150,7 +150,7 @@ public class Ficha {
             }
         }
         return filtradas;
-    }
+    }*/
 
     /**
      * Verifica si el jugador ha completado todos los triángulos.
