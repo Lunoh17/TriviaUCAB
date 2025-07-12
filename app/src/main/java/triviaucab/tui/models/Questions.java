@@ -36,11 +36,11 @@ public class Questions {
 
     /**
      * Solicita al usuario que establezca el tiempo límite para responder las preguntas.
-     * El tiempo debe estar entre 0 y 2 minutos.
+     * El tiempo debe estar entre 0 y 180 segundos.
      */
     public void setTime(Scanner scanner) {
         do {
-            this.time = Validator.validarInt("Ingrese el tiempo límite de las preguntas que no exceda de dos minutos 180 segundos",scanner);
+            this.time = Validator.validarInt("Ingrese el tiempo límite de las preguntas que no exceda de 180 segundos",scanner);
             if (time < 0 || time > 180) {
                 System.out.print("El tiempo que introdujo se excede del límite: ");
             }
