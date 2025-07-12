@@ -83,7 +83,7 @@ public class TableTop {
         }
         Gson gson = new Gson();
 
-        Square listaSquare[]= new Square[MAX_PLAYERS];
+        Square[] listaSquare = new Square[MAX_PLAYERS];
         int contador = 0;
         for (Ficha fa:jugadores){
             listaSquare[contador++]=fa.posicion;
